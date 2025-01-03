@@ -7,7 +7,7 @@ class SocketManager {
   private static getInstance() {
     if (!this.instance) {
       this.instance = new SocketManager();
-      this.socket = io("http://localhost:4000", {
+      this.socket = io("https://nodejs-twitter-oodl.onrender.com", {
         transports: ["websocket"],
       });
     }
