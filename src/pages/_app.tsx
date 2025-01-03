@@ -7,7 +7,6 @@ import type { AppProps } from "next/app";
 import { useEffect } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
-  console.log(`${process.env.NEXT_PUBLIC_BASE_URL}`);
   const { posts, addPost } = usePostStore();
   useEffect(() => {
     const socket = SocketManager.getSocket();

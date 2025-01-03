@@ -7,7 +7,7 @@ class SocketManager {
   private static getInstance() {
     if (!this.instance) {
       this.instance = new SocketManager();
-      this.socket = io("https://nodejs-twitter-oodl.onrender.com", {
+      this.socket = io(`https://nodejs-twitter-oodl.onrender.com:4000`, {
         transports: ["websocket"],
       });
     }
@@ -15,7 +15,7 @@ class SocketManager {
   }
 
   static getSocket() {
-    console.log("get socket");
+    console.log(window.location.protocol);
     if (!this.socket) {
       this.getInstance();
     }
