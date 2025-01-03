@@ -7,7 +7,7 @@ class SocketManager {
   private static getInstance() {
     if (!this.instance) {
       this.instance = new SocketManager();
-      this.socket = io(`https://sheep.up.railway.app:4000`, {
+      this.socket = io(`sheep.up.railway.app:4000`, {
         transports: ["websocket"],
       });
     }

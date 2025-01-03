@@ -10,6 +10,9 @@ export default function App({ Component, pageProps }: AppProps) {
   const { posts, addPost } = usePostStore();
   useEffect(() => {
     const socket = SocketManager.getSocket();
+    socket.on("connect_error", (error) => {
+      console.error("Connection error:", error);
+    });
     socket.on("message", (message) => {
       console.log(message.data);
       //setPost(data)
