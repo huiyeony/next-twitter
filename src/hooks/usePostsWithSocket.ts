@@ -41,6 +41,7 @@ export const usePostsWithSocket = () => {
         `${process.env.NEXT_PUBLIC_BASE_URL}/post/create`,
         {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
