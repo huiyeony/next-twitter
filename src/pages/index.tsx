@@ -1,114 +1,117 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import ModalInput from "@/components/modalInput";
+import { PostItem } from "@/components/postItem";
+import { usePostsWithSocket } from "@/hooks/usePostsWithSocket";
+import SocketManager from "@/libs/socket";
+import useAuthStore from "@/store/authStore";
+import useModalStore from "@/store/modalStore";
+import usePostStore from "@/store/postStore";
+import { Post } from "@/type";
+import { Bell, Hash, Mail, User, HouseIcon, Plus } from "lucide-react";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/pages/index.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const { isOpen, openModal, closeModal } = useModalStore();
+  const { createNewPost, posts, ref } = usePostsWithSocket();
+  const { user } = useAuthStore();
+  const [showScrollTop, setShowScrollTop] = useState(true);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const router = useRouter();
+  const checkLoginAndRedirect = () => {
+    if (!user) {
+      return false;
+    }
+    return true;
+  };
+  const handleSubmit = (value: string) => {
+    //로그인 여부 확인
+    if (!checkLoginAndRedirect()) {
+      alert(`로그인이 필요한 서비스입니다.`);
+      router.push("/login");
+      return;
+    }
+    //사용자 이름 기억
+    const post = { username: `${user?.username}`, content: value };
+    createNewPost(post);
+
+    closeModal();
+  };
+  const handleModalOpen = () => {
+    console.log(`모달 버튼 클릭 `);
+    if (isOpen) closeModal();
+    else openModal();
+  };
+
+  useEffect(() => {
+    //마운트
+
+    //언마운트
+    return () => {};
+  }, []);
+
+  useEffect(() => {
+    //버튼 보이기
+    //todo : 새 트윗이 추가 되도 버튼 보이도록 수정
+    const handleScroll = () => setShowScrollTop(true);
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const menus = [
+    { icon: <HouseIcon size={20} />, label: "홈" },
+    { icon: <Bell size={20} />, label: "알림" },
+    { icon: <Mail size={20} />, label: "쪽지" },
+    { icon: <User size={20} />, label: "프로필" },
+  ];
+
+  return (
+    <>
+      <Head>
+        <title> Twitter </title>
+        <meta name="description" content="소셜 커뮤니티" />
+      </Head>
+      <main>
+        <div className="min-h-screen">
+          <div className="flex max-x-7xl mx-auto">
+            {/**side bar */}
+            <div className="w-60 min-h-screen sticky left-0 top-0 border-r border-gray-400 rounded-full">
+              <div className="space-y-4">
+                {menus.map((item) => (
+                  <div key={item.label} className="m-4 flex align-center">
+                    <button className="p-2">{item.icon}</button>
+                    <span className="text-xl p-2">{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/** posts */}
+            <div className="flex flex-col">
+              {posts.map((item) => (
+                <PostItem key={item.id} {...item} />
+              ))}
+              <div ref={ref}></div>
+              <button
+                onClick={handleModalOpen}
+                className="fixed bottom-8 right-16 w-20 h-20 flex items-center justify-center 
+              w-14 h-14 bg-yellow-500 text-white p-3 rounded-full shadow-lg hover:bg-yellow-600 transition-colors"
+              >
+                <Plus size={20} />
+              </button>
+              {/**모달  */}
+              {isOpen && <ModalInput handleSubmit={handleSubmit} />}
+            </div>
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    </>
   );
 }
