@@ -70,6 +70,7 @@ export default function Index() {
         setUser(data.user);
         router.push("/");
       } catch (e) {
+        console.log(e);
         setErrors({
           email: "",
           password: "",
