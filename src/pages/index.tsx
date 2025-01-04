@@ -79,7 +79,7 @@ export default function Home() {
           <meta property="og:image" content="/sheep.png" />
           <meta property="og:image:width" content="1200" />
           <meta property="og:image:height" content="630" />
-          <meta property="og:image:alt" content="이미지 설명" />
+          <meta property="og:image:alt" content="sheep" />
         </Head>
       </Head>
       <main>
