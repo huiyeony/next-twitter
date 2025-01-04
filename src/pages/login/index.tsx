@@ -1,8 +1,9 @@
 import useAuthStore from "@/store/authStore";
-import { FormError, LoginRequest } from "@/type";
+import { FormError, LoginRequest, Post } from "@/type";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { login } from "../api/auth";
 
 export default function Index() {
   const { user, setUser, isAuthenticated, logout } = useAuthStore();
@@ -47,26 +48,8 @@ export default function Index() {
     const newErrors = validateForm();
     if (Object.values(newErrors).every((value) => value == "")) {
       try {
-        //api
-        console.log(`starting fetch request`);
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/auth/login`,
-          {
-            method: "POST",
-            credentials: "include",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(form),
-          }
-        );
-        console.log(`GET fetch response`);
-        if (!response.ok) {
-          throw new Error(`Failed to Login request`);
-        }
-        const data = await response.json();
-        //authStore에 저장
-        console.log(data);
+        // /api/auth.ts
+        const data = await login(form);
         setUser(data.user);
         router.push("/");
       } catch (e) {

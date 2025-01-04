@@ -1,4 +1,3 @@
-import { usePostsWithSocket } from "@/hooks/usePostsWithSocket";
 import SocketManager from "@/libs/socket";
 import usePostStore from "@/store/postStore";
 import "@/styles/globals.css";

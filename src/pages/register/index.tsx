@@ -1,10 +1,9 @@
-import { useAuth } from "@/hooks/useAuth";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { register } from "../api/auth";
 
 export default function Index() {
-  const auth = useAuth();
   const router = useRouter();
   const [errors, setErrors] = useState({
     username: "",
@@ -63,16 +62,14 @@ export default function Index() {
     const newErrors = validateForm();
     if (Object.values(newErrors).every((value) => value == "")) {
       try {
-        //api~
-        const req = {
+        // /api/auth.ts
+
+        const data = await register({
           email: formData.email,
           username: formData.username,
           password: formData.password,
-        };
-        const res = await auth.register(req);
-        console.log(res);
-
-        console.log("회원가입");
+        });
+        console.log(data);
         router.push("/login");
       } catch (e) {
         setErrors({

@@ -1,62 +1,46 @@
-import {
-  AxiosError,
-  LoginRequest,
-  LoginResponse,
-  RegisterRequest,
-  RegisterResponse,
-} from "@/type";
-import axios from "axios";
+import { LoginRequest, RegisterRequest } from "@/type";
 
-const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-  withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-export class AuthAPI {
-  static async login(req: LoginRequest): Promise<LoginResponse> {
-    try {
-      const { data } = await api.post("/auth/login", req);
-      return data;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        throw {
-          message: error.response?.data?.message,
-          status: error.response?.status,
-        } as AxiosError;
-      }
-      //알수 없는 애러
-      throw error;
+export const login = async (req: LoginRequest) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/login`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(req),
+    });
+    if (!res.ok) {
+      throw new Error(`로그인 실패`);
     }
+    const data = await res.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
   }
-  static async logout(): Promise<void> {
-    try {
-      const { data } = await api.post("/auth/logout");
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        throw {
-          message: error.response?.data.message,
-          status: error.response?.status,
-        } as AxiosError;
+};
+export const register = async (req: RegisterRequest) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/auth/register`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(req),
       }
-      throw error;
+    );
+    if (!res.ok) {
+      throw new Error(`회원가입 실패`);
     }
+    const data = res.json();
+    console.log(data);
+
+    return data;
+  } catch (error) {
+    console.log(error);
   }
-  static async register(req: RegisterRequest): Promise<RegisterResponse> {
-    try {
-      console.log(process.env.NEXT_PUBLIC_BASE_URL);
-      const { data } = await api.post("/auth/register", req);
-      return data;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        throw {
-          message: error.response?.data.message,
-          status: error.response?.status,
-        } as AxiosError;
-      }
-      //알 수 없는 에러
-      throw error;
-    }
-  }
-}
+};

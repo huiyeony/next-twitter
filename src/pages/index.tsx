@@ -1,19 +1,16 @@
 import ModalInput from "@/components/modalInput";
 import { PostItem } from "@/components/postItem";
 import { usePostsWithSocket } from "@/hooks/usePostsWithSocket";
-import SocketManager from "@/libs/socket";
 import useAuthStore from "@/store/authStore";
 import useModalStore from "@/store/modalStore";
-import usePostStore from "@/store/postStore";
-import { Post } from "@/type";
-import { Bell, Hash, Mail, User, HouseIcon, Plus } from "lucide-react";
+import { Bell, Mail, User, HouseIcon, Plus } from "lucide-react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function Home() {
   const { isOpen, openModal, closeModal } = useModalStore();
-  const { createNewPost, posts, ref } = usePostsWithSocket();
+  const { createPost, loadPosts, posts, ref } = usePostsWithSocket();
   const { user } = useAuthStore();
   const [showScrollTop, setShowScrollTop] = useState(true);
 
@@ -33,7 +30,7 @@ export default function Home() {
     }
     //사용자 이름 기억
     const post = { username: `${user?.username}`, content: value };
-    createNewPost(post);
+    createPost(post);
 
     closeModal();
   };
