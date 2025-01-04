@@ -74,7 +74,13 @@ export default function Home() {
     <>
       <Head>
         <title>Sheep 스토리</title>
-        <meta name="description" content="Sheep 스토리" />
+        <Head>
+          <meta property="description" content="sheep이 만든 스토리 보드" />
+          <meta property="og:image" content="/sheep.png" />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta property="og:image:alt" content="이미지 설명" />
+        </Head>
       </Head>
       <main>
         <div className="min-h-screen">
