@@ -4,7 +4,6 @@ export const login = async (req: LoginRequest) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/login`, {
       method: "POST",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },

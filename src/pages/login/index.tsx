@@ -6,7 +6,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { login } from "../api/auth";
 
 export default function Index() {
-  const { user, setUser, isAuthenticated, logout } = useAuthStore();
+  const { setUser } = useAuthStore();
   const router = useRouter();
   const [form, setForm] = useState<LoginRequest>({
     email: "",

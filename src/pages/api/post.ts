@@ -1,5 +1,9 @@
 import { CreatePostDto } from "@/type";
 
+// Next.js API 라우트에 CORS 설정 추가 (pages/api/[...].ts)
+import type { NextApiRequest, NextApiResponse } from "next";
+import cors from "cors";
+
 export const createNewPost = async (postData: CreatePostDto) => {
   try {
     //새로운 포스트 등록
