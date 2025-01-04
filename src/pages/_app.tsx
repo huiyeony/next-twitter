@@ -31,7 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
       socket.off("connect");
       socket.off("message");
       socket.off("newPost");
-      socket.off("disconnected");
+      socket.off("disconnect");
 
       socket.close();
     };

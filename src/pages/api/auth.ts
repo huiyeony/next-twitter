@@ -2,6 +2,7 @@ import { LoginRequest, RegisterRequest } from "@/type";
 
 export const login = async (req: LoginRequest) => {
   try {
+    console.log("Base URL:", process.env.NEXT_PUBLIC_BASE_URL);
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/login`, {
       method: "POST",
       headers: {
