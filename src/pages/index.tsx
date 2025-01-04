@@ -73,8 +73,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title> Twitter </title>
-        <meta name="description" content="소셜 커뮤니티" />
+        <title>Sheep 스토리</title>
+        <meta name="description" content="Sheep 스토리" />
       </Head>
       <main>
         <div className="min-h-screen">
