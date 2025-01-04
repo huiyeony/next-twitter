@@ -48,6 +48,7 @@ export default function Index() {
     if (Object.values(newErrors).every((value) => value == "")) {
       try {
         //api
+        console.log(`starting fetch request`);
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/auth/login`,
           {
@@ -59,6 +60,7 @@ export default function Index() {
             body: JSON.stringify(form),
           }
         );
+        console.log(`GET fetch response`);
         if (!response.ok) {
           throw new Error(`Failed to Login request`);
         }
