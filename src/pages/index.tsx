@@ -41,9 +41,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    //마운트
-
-    //언마운트
+    loadPosts();
     return () => {};
   }, []);
 
