@@ -52,7 +52,6 @@ export default function Index() {
           `${process.env.NEXT_PUBLIC_BASE_URL}/auth/login`,
           {
             method: "POST",
-            mode: "no-cors",
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
