@@ -61,18 +61,16 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Sheep 스토리</title>
-        <Head>
-          <meta property="description" content="sheep이 만든 스토리 보드" />
-          <meta
-            property="og:image"
-            content={`${process.env.NEXT_PUBLIC_DOMAIN}/sheep.png`}
-          />
-          <meta property="og:image:type" content="image/png" />
-          <meta property="og:image:width" content="800" />
-          <meta property="og:image:height" content="400" />
-        </Head>
+        <meta property="description" content="sheep이 만든 스토리 보드" />
+        <meta
+          property="og:image"
+          content={`${process.env.NEXT_PUBLIC_DOMAIN}/sheep.png`}
+        />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="800" />
+        <meta property="og:image:height" content="400" />
       </Head>
+
       <main>
         <div className="min-h-screen">
           <div className="flex max-x-7xl mx-auto">
