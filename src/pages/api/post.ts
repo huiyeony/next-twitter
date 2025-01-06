@@ -27,14 +27,14 @@ export const createNewPost = async (postData: CreatePostDto) => {
     console.log(error);
   }
 };
-export const loadMorePosts = async () => {
-  try {
-    //REST API
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/post`);
-    const data = await res.json();
+// export const loadMorePosts = async () => {
+//   try {
+//     //REST API
+//     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/post`);
+//     const data = await res.json();
 
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+//     return data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };

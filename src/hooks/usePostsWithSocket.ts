@@ -1,5 +1,5 @@
 import SocketManager from "@/libs/socket";
-import { createNewPost, loadMorePosts } from "@/pages/api/post";
+import { createNewPost } from "@/pages/api/post";
 import usePostStore from "@/store/postStore";
 import { CreatePostDto } from "@/type";
 import { useEffect } from "react";
@@ -15,21 +15,21 @@ export const usePostsWithSocket = () => {
     socket.emit("newPost", data);
   };
 
-  const loadPosts = async () => {
-    const data = await loadMorePosts();
-    setPost(data);
-  };
+  // const loadPosts = async () => {
+  //   const data = await loadMorePosts();
+  //   setPost(data);
+  // };
   //html 요소가 보이는지 여부 체크
   const { ref, inView } = useInView();
 
   //무한 스크롤링
-  useEffect(() => {
-    if (inView) {
-      loadMorePosts();
-    }
-  }, [inView]);
+  // useEffect(() => {
+  //   if (inView) {
+  //     loadMorePosts();
+  //   }
+  // }, [inView]);
   //소켓 관리
   useEffect(() => {}, []);
 
-  return { createPost, loadPosts, posts, ref };
+  return { createPost, posts, ref };
 };

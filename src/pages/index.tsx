@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const { isOpen, openModal, closeModal } = useModalStore();
-  const { createPost, loadPosts, posts, ref } = usePostsWithSocket();
+  const { createPost, posts, ref } = usePostsWithSocket();
   const { user } = useAuthStore();
   const [showScrollTop, setShowScrollTop] = useState(true);
 
@@ -50,12 +50,6 @@ export default function Home() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  const handleScrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
 
   const menus = [
     { icon: <HouseIcon size={20} />, label: "홈" },
@@ -92,12 +86,12 @@ export default function Home() {
             </div>
             {/** posts */}
 
-            <div className="flex flex-col">
+            <div className="flex flex-col mt-14">
               <InfiniteScroll />
               {posts.map((item) => (
                 <PostItem key={item.id} {...item} />
               ))}
-              <div ref={ref}></div>
+
               <button
                 onClick={handleModalOpen}
                 className="fixed bottom-8 right-16 w-20 h-20 flex items-center justify-center 
