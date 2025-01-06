@@ -64,10 +64,13 @@ export default function Home() {
         <title>Sheep 스토리</title>
         <Head>
           <meta property="description" content="sheep이 만든 스토리 보드" />
-          <meta property="og:image" content="/sheep.png" />
-          <meta property="og:image:width" content="1200" />
-          <meta property="og:image:height" content="630" />
-          <meta property="og:image:alt" content="sheep" />
+          <meta
+            property="og:image"
+            content={`${process.env.NEXT_PUBLIC_DOMAIN}/sheep.png`}
+          />
+          <meta property="og:image:type" content="image/png" />
+          <meta property="og:image:width" content="800" />
+          <meta property="og:image:height" content="400" />
         </Head>
       </Head>
       <main>
