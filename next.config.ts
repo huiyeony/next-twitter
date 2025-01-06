@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: true,
   images: {
-    domains: ["placehold.co"],
+    domains: ["placehold.co", "wssheep.up.railway.app"],
   },
 };
 
