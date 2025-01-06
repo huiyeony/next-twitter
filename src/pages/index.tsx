@@ -1,3 +1,4 @@
+import { InfiniteScroll } from "@/components/infiniteScroll";
 import ModalInput from "@/components/modalInput";
 import { PostItem } from "@/components/postItem";
 import { usePostsWithSocket } from "@/hooks/usePostsWithSocket";
@@ -39,11 +40,6 @@ export default function Home() {
     if (isOpen) closeModal();
     else openModal();
   };
-
-  useEffect(() => {
-    loadPosts();
-    return () => {};
-  }, []);
 
   useEffect(() => {
     //버튼 보이기
@@ -95,7 +91,9 @@ export default function Home() {
               </div>
             </div>
             {/** posts */}
+
             <div className="flex flex-col">
+              <InfiniteScroll />
               {posts.map((item) => (
                 <PostItem key={item.id} {...item} />
               ))}
