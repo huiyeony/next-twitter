@@ -1,3 +1,10 @@
+export type NoticeDto = {
+  id: string;
+  message: string;
+  type: "info" | "error";
+  duration: number;
+  onClose?: (id: string) => void;
+};
 export type UpdatePostDto = {
   id: number;
   content: string;
@@ -9,10 +16,9 @@ export type CreatePostDto = {
 export type Post = {
   id: number;
   username: string;
-  avatar: string;
   createdAt: string;
   content: string;
-  image: string;
+  image: string | null;
 };
 
 export type Room = {

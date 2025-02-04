@@ -1,3 +1,4 @@
+import BottomNavigation from "@/components/bottmNavigation";
 import SocketManager from "@/libs/socket";
 import usePostStore from "@/store/postStore";
 import "@/styles/globals.css";
@@ -36,5 +37,10 @@ export default function App({ Component, pageProps }: AppProps) {
       socket.close();
     };
   }, []);
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Component {...pageProps} />
+      <BottomNavigation />
+    </>
+  );
 }

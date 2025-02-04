@@ -1,14 +1,7 @@
+import { Post } from "@/type";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-// 전역변수 관리와 캐싱
-interface Post {
-  id: number;
-  username: string;
-  avatar: string;
-  content: string;
-  createdAt: string;
-  image: string;
-}
+
 interface PostStore {
   posts: Post[];
   addPost: (post: Post) => void;

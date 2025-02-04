@@ -24,8 +24,8 @@ const ModalInput = ({
         <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex flex-col items-center justify-center">
           <div className="px-6 bg-white rounded-xl w-11/12 max-w-md p-1 shadow-xl">
             {/**입력창 */}
-            <input
-              type="text"
+            <textarea
+              rows={7}
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="무슨일이 일어나고 있나요?"
