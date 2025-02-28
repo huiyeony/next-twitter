@@ -48,7 +48,7 @@ export default function Index() {
     const newErrors = validateForm();
     if (Object.values(newErrors).every((value) => value == "")) {
       try {
-        // /api/auth.ts
+        // /api/auth -> 서버에서만 실행됨
         const data = await login(form);
         setUser(data.user);
         router.push("/");

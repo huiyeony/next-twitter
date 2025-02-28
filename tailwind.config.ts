@@ -11,6 +11,7 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        "dark-magenta": "#8b008b", //짙은 자주색
       },
     },
   },

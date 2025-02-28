@@ -1,4 +1,5 @@
 import useAuthStore from "@/store/authStore";
+import { ArrowBigUpDash } from "lucide-react";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
@@ -44,27 +45,38 @@ export const ImageUploadForm = ({ onSubmit }: TImageUploadFormProps) => {
   };
   return (
     <>
-      <form onSubmit={handleOnSubmit} className="space-y-4 max-w-md ">
+      <form onSubmit={handleOnSubmit} className="space-y-4 max-w-md">
         <input
           value={content}
           name="content"
           placeholder="무슨일이 일어나고 있나요??"
           onChange={(e) => setContent(e.target.value)}
-          className="text-sm mt-1 block w-full rounded-md border-2 border-gray-300"
+          className="w-80 h-80 text-sm px-4 block w-full rounded-md border-2 border-gray-300"
           required
         />
-        <input
-          type="file"
-          name="file"
-          accept="image/*"
-          onChange={handleImageChange}
-          className="text-sm mt-1 block w-full"
-        />
+        <div>
+          <label
+            htmlFor="fileInput"
+            className="flex w-full h-20 items-center text-sm duration-300 ease-in-out space-x-10"
+          >
+            <ArrowBigUpDash size={40} />
+            <div className="font-bold w-full">이미지 선택하기</div>
+          </label>
+          <input
+            type="file"
+            name="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="text-sm mt-1 block w-full opacity-0 cursor-pointer"
+            id="fileInput"
+          />
+        </div>
+
         <button
           type="submit"
           disabled={isLoading}
           className={`
-          w-full px-4 py-2 rounded-md
+          w-full px-4 py-2 rounded-md font-bold py-3
           ${isLoading ? "bg-gray-400" : "text-sm bg-gray-300 hover:bg-gray-400"}
         `}
         >

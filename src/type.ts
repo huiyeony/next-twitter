@@ -1,10 +1,15 @@
-export type NoticeDto = {
-  id: string;
-  message: string;
-  type: "info" | "error";
-  duration: number;
-  onClose?: (id: string) => void;
+export type NotificationItemProps = {
+  notification: NotificationDto;
+  onDismiss: (id: string) => void;
 };
+export type NotificationDto = {
+  id: string;
+  icon: string;
+  time: string;
+  title: string;
+  message: string;
+};
+
 export type UpdatePostDto = {
   id: number;
   content: string;

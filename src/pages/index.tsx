@@ -1,12 +1,6 @@
-import BottomNavigation from "@/components/bottmNavigation";
 import { InfiniteScroll } from "@/components/infiniteScroll";
-import ModalInput from "@/components/modalInput";
 import { PostItem } from "@/components/postItem";
-import useAuthStore from "@/store/authStore";
-import useModalStore from "@/store/modalStore";
 import usePostStore from "@/store/postStore";
-import { Bell, Mail, User, HouseIcon, Plus } from "lucide-react";
-import { useRouter } from "next/router";
 
 export default function Home() {
   const { posts } = usePostStore();

@@ -11,11 +11,13 @@ export const PostItem = ({ id, username, content, createdAt, image }: Post) => {
 
       <div className="flex-grow space-y-4">
         <div className="flex items-center space-x-4">
-          <span className="text-sm">{username}</span>
-          <span className="text-sm text-gray-500">{createdAt}</span>
+          <span className="font-bold text-sm text-gray-600">{username}</span>
+          <span className="text-sm text-gray-500">
+            {createdAt.substring(0, 10)}
+          </span>
         </div>
 
-        <p className="text-sm">{content}</p>
+        <p className="font-bold text-sm">{content}</p>
         {image && (
           <Image
             className="object-contain max-w-[200] max-h-[500px] mt-4 rounded-xl"

@@ -25,8 +25,9 @@ const Index = () => {
   };
   return (
     <>
-      <div>
-        <h1 className="text-sm ">새글 작성</h1>
+      <div className="flex flex-col items-center mt-10">
+        <h1 className="font-bold text-md">새글 작성</h1>
+        <div className="mt-10"></div>
         <ImageUploadForm onSubmit={onSubmit} />
       </div>
     </>

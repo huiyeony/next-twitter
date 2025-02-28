@@ -1,5 +1,6 @@
 import BottomNavigation from "@/components/bottmNavigation";
 import SocketManager from "@/libs/socket";
+import { useNotificationStore } from "@/store/notificationStore";
 import usePostStore from "@/store/postStore";
 import "@/styles/globals.css";
 import { Post } from "@/type";
@@ -8,6 +9,7 @@ import { useEffect } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
   const { posts, addPost } = usePostStore();
+  const { notifications, addNotification } = useNotificationStore();
   useEffect(() => {
     const socket = SocketManager.getSocket();
     socket.on("connect_error", (error) => {
