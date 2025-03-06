@@ -24,6 +24,9 @@ export type Post = {
   createdAt: string;
   content: string;
   image: string | null;
+  isLiked: boolean;
+  likes: number;
+  isBookmarked: boolean;
 };
 
 export type Room = {

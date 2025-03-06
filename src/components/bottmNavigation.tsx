@@ -34,7 +34,7 @@ const BottomNavigation = () => {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 pb-safe">
+    <nav className="fixed bottom-0 w-full bg-white border-t border-gray-200 pb-safe z-10">
       <div className="flex justify-around items-center h-16">
         {menuItems.map((item) => (
           <button

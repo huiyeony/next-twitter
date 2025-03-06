@@ -4,12 +4,21 @@ import Image from "next/image";
 
 export const PostItem = ({ id, username, content, createdAt, image }: Post) => {
   return (
-    <div key={id} className="flex space-x-4 m-8">
-      <div className="relative w-10 h-10 rounded-full bg-white ">
-        <Image fill className="rounded-full" src={"/user.png"} alt={username} />
+    <div
+      key={id}
+      className="min-w-[400px] min-h-[100px] flex p-3 rounded-xl space-x-4 mb-3"
+    >
+      <div className="relative rounded-full">
+        <Image
+          width={50}
+          height={50}
+          className="rounded-full"
+          src={"/user.png"}
+          alt={username}
+        />
       </div>
 
-      <div className="flex-grow space-y-4">
+      <div className="flex flex-col space-y-8">
         <div className="flex items-center space-x-4">
           <span className="font-bold text-sm text-gray-600">{username}</span>
           <span className="text-sm text-gray-500">
@@ -19,14 +28,16 @@ export const PostItem = ({ id, username, content, createdAt, image }: Post) => {
 
         <p className="font-bold text-sm">{content}</p>
         {image && (
-          <Image
-            className="object-contain max-w-[200] max-h-[500px] mt-4 rounded-xl"
-            width={200}
-            height={500}
-            src={image}
-            alt="image"
-            priority
-          />
+          <div className="relative w-[400px] h-[400px]">
+            <Image
+              className="mt-4 rounded-xl"
+              layout="fill"
+              objectFit="contain"
+              src={image}
+              alt="image"
+              priority
+            />
+          </div>
         )}
         <div className="flex justify-between mt-4 text-gray-500">
           <button className="hover:text-blue-500 flex space-x-3 justify-center">
