@@ -107,7 +107,7 @@ export default function NewPostPage() {
     if (e.target.files && e.target.files[0]) {
       setFormData((prevData) => ({
         ...prevData,
-        image: e.target.files[0],
+        image: e.target.files ? e.target.files[0] : null,
       }));
     }
   };
