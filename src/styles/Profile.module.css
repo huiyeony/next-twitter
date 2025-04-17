@@ -1,0 +1,42 @@
+/* styles/Profile.module.css */
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+  font-family: "Hiragino Kaku Gothic Pro", "メイリオ", sans-serif;
+}
+
+.header {
+  background-color: white;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #dddddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.redCircle {
+  width: 24px;
+  height: 24px;
+  background-color: #d3251a;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333333;
+  font-weight: normal;
+}
+
+.nav {
+  display: flex;
+  gap: 1.5rem;
+}

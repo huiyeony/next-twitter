@@ -1,89 +1,60 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useReducer, useState } from "react";
 import { register } from "../api/auth";
-
+type FormType = {
+  username: string;
+  email: string;
+  password: string;
+};
+type FormAction =
+  | { type: "RESET" }
+  | { type: "SET"; email: string; password: string; username: string };
+function reducer(state: FormType, action: FormAction): FormType {
+  switch (action.type) {
+    case "RESET": //빈문자열 초기화
+      return {
+        username: "",
+        email: "",
+        password: "",
+      };
+    case "SET":
+      return {
+        ...state, //기존 형식 덮어쓰기
+        username: action.username,
+        email: action.email,
+        password: action.password,
+      };
+    default:
+      return state;
+  }
+}
 export default function Index() {
+  const [formData, dispatch] = useReducer(reducer, {
+    username: "",
+    email: "",
+    password: "",
+  });
+
   const router = useRouter();
-  const [errors, setErrors] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    submit: "",
-  });
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    submit: "",
-  });
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-  const validateForm = () => {
-    setErrors({
-      username: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      submit: "",
-    });
-    const newErrors = {
-      username: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      submit: "",
-    };
-
-    if (!formData.email) {
-      newErrors.email = "이메일을 입력해주세요";
-    } else if (!/\S+\@+\S+\.+\S/.test(formData.email)) {
-      newErrors.email = "이메일 형식이 올바르지 않습니다.";
-    } else if (!formData.username) {
-      newErrors.username = "이름을 입력해주세요";
-    } else if (!formData.password) {
-      newErrors.password = "비밀번호를 입력해주세요";
-    } else if (!(formData.password == formData.confirmPassword)) {
-      newErrors.confirmPassword = "비밀번호가 일치하지 않습니다.";
-    }
-
-    return newErrors;
-  };
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newErrors = validateForm();
-    if (Object.values(newErrors).every((value) => value == "")) {
-      try {
-        // /api/auth.ts
 
-        const data = await register({
-          email: formData.email,
-          username: formData.username,
-          password: formData.password,
-        });
-        console.log(data);
-        router.push("/login");
-      } catch (e) {
-        setErrors({
-          username: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
-          submit: "회원가입 도중 오류가 발생했습니다.",
-        });
+    try {
+      // /api/auth.ts
+      const res = await register({
+        email: formData.email,
+        password: formData.password,
+      });
+      if (res.ok) router.push("/login");
+      else {
+        alert("다시 시도해보세요");
+        dispatch({ type: "RESET" });
       }
-    } else {
-      setErrors(newErrors);
+    } catch (e) {
+      console.log(e);
     }
-    console.log(errors);
   };
   return (
     <>
@@ -106,17 +77,10 @@ export default function Index() {
                   type="text"
                   value={formData.username || ""}
                   placeholder="이름"
-                  onChange={handleChange}
-                  className={`p-3 mb-2 appearance-none rounded-md block border ${
-                    errors.email ? "border-red-300" : "border-gray-300"
-                  } placeholder-gray-400 text-gray-500 focus:outline-none 
+                  className={`p-3 mb-2 appearance-none rounded-md block border  placeholder-gray-400 text-gray-500 focus:outline-none 
               focus:ring-blue-500 focus:outline-blue-500`}
                 />
-                {errors.username && (
-                  <p className="px-2 mb-3 text-left text-xs text-red-500">
-                    {errors.username || ""}
-                  </p>
-                )}
+
                 <label htmlFor="email" className="sr-only">
                   이매일
                 </label>
@@ -128,17 +92,10 @@ export default function Index() {
                   autoComplete="email"
                   value={formData.email || ""}
                   placeholder="이메일"
-                  onChange={handleChange}
-                  className={`p-3 mb-2 appearance-none rounded-md block border ${
-                    errors.email ? "border-red-300" : "border-gray-300"
-                  } placeholder-gray-400 text-gray-500 focus:outline-none 
+                  className={`p-3 mb-2 appearance-none rounded-md block border  placeholder-gray-400 text-gray-500 focus:outline-none 
                 focus:ring-blue-500 focus:outline-blue-500`}
                 />
-                {errors.email && (
-                  <p className="px-2 mb-3 text-left text-xs text-red-500">
-                    {errors.email || ""}
-                  </p>
-                )}
+
                 <label htmlFor="password" className="sr-only">
                   비밀번호
                 </label>
@@ -148,37 +105,10 @@ export default function Index() {
                   type="password"
                   value={formData.password || ""}
                   placeholder="비밀번호를 입력하세요"
-                  onChange={handleChange}
-                  className={`p-3 mb-2 appearance-none rounded-md block border ${
-                    errors.password ? "border-red-300" : "border-gray-300"
-                  } placeholder-gray-400 text-gray-500 focus:outline-none focus:ring-blue-500 focus:outline-blue-500
+                  className={`p-3 mb-2 appearance-none rounded-md block border  placeholder-gray-400 text-gray-500 focus:outline-none focus:ring-blue-500 focus:outline-blue-500
                 `}
                 />
-                {errors.password && (
-                  <p className="px-2 mb-3 text-left text-xs text-red-500">
-                    {errors.password || ""}
-                  </p>
-                )}
-                <label htmlFor="password" className="sr-only">
-                  확인 비밀번호
-                </label>
-                <input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type="password"
-                  value={formData.confirmPassword || ""}
-                  placeholder="비밀번호를 재입력하세요"
-                  onChange={handleChange}
-                  className={`p-3 mb-2 appearance-none rounded-md block border ${
-                    errors.password ? "border-red-300" : "border-gray-300"
-                  } placeholder-gray-400 text-gray-500 focus:outline-none focus:ring-blue-500 focus:outline-blue-500
-                `}
-                />
-                {errors.confirmPassword && (
-                  <p className="px-2 mb-3 text-left text-xs text-red-500">
-                    {errors.confirmPassword || ""}
-                  </p>
-                )}
+
                 <button
                   type="submit"
                   className="h-13 flex justify-center py-2 px-4 border

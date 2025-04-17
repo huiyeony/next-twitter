@@ -1,0 +1,182 @@
+/* styles/PostForm.module.css */
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+  font-family: "Hiragino Kaku Gothic Pro", "メイリオ", sans-serif;
+}
+
+.header {
+  background-color: white;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #dddddd;
+  text-align: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.redCircle {
+  width: 30px;
+  height: 30px;
+  background-color: #d3251a;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #333333;
+  font-weight: normal;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 1rem;
+  color: #666666;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 700px;
+  border: 1px solid #eeeeee;
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333333;
+  font-size: 0.9rem;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: #fafafa;
+  transition: border-color 0.3s;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: #1a4d55;
+  outline: none;
+}
+
+.textarea {
+  resize: vertical;
+}
+
+.fileInput {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.inputFile {
+  position: absolute;
+  font-size: 100px;
+  opacity: 0;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+}
+
+.fileLabel {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background-color: #fafafa;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.submitButton,
+.cancelButton {
+  padding: 0.8rem 2rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.submitButton {
+  background-color: #d3251a;
+  color: white;
+  border: none;
+}
+
+.submitButton:hover {
+  background-color: #b81c12;
+}
+
+.cancelButton {
+  background-color: white;
+  color: #666666;
+  border: 1px solid #dddddd;
+}
+
+.cancelButton:hover {
+  background-color: #f5f5f5;
+}
+
+.footer {
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #666666;
+  border-top: 1px solid #eeeeee;
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 1rem;
+  }
+
+  .form {
+    padding: 1.5rem;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+  }
+
+  .submitButton,
+  .cancelButton {
+    width: 100%;
+    margin-bottom: 0.8rem;
+  }
+}

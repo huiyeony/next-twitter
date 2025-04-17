@@ -1,4 +1,5 @@
 import { NotificationItemProps } from "@/type";
+import { X } from "lucide-react";
 import Image from "next/image";
 export const NotificationItem: React.FC<NotificationItemProps> = ({
   notification,
@@ -17,15 +18,17 @@ export const NotificationItem: React.FC<NotificationItemProps> = ({
       </div>
 
       <div className="flex flex-col text-sm font-bold">
-        <span>{notification.title}</span>
+        <span>
+          {notification.title} {notification.time}
+        </span>
         <span>{notification.message}</span>
       </div>
-      <div className="flex flex-col space-y-2 font-bold items-center justify-center">
+      <div>
         <button
           onClick={() => onDismiss(notification.id)}
           className="text-gray-400 hover:text-gray-600"
         >
-          x
+          <X size={20} />
         </button>
       </div>
     </div>

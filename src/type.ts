@@ -1,3 +1,11 @@
+export type UploadForm = {
+  title: string;
+  category: "general";
+  content: string;
+  author: string;
+  image: File | null;
+};
+
 export type NotificationItemProps = {
   notification: NotificationDto;
   onDismiss: (id: string) => void;
@@ -48,7 +56,6 @@ export interface FormError {
   submit: string;
 }
 export interface RegisterRequest {
-  username: string;
   email: string;
   password: string;
 }

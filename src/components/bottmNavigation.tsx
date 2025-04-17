@@ -1,40 +1,13 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { Home, User, Bell, Pencil } from "lucide-react";
-import useAuthStore from "@/store/authStore";
+import { getMenuItems } from "@/utils/getMenuItem";
 
 const BottomNavigation = () => {
   const router = useRouter();
-  const { user } = useAuthStore();
-  const menuItems = [
-    {
-      id: 1,
-      icon: Home,
-      label: "홈",
-      path: "/",
-    },
-    {
-      id: 2,
-      icon: Pencil,
-      label: "글쓰기",
-      path: "/write",
-    },
-    {
-      id: 3,
-      icon: Bell,
-      label: "알림",
-      path: "/notifications",
-    },
-    {
-      id: 4,
-      icon: User,
-      label: "프로필",
-      path: `/profile/${user?.username}`,
-    },
-  ];
+  const menuItems = getMenuItems(); //선언적인 코드
 
   return (
-    <nav className="fixed bottom-0 w-full bg-white border-t border-gray-200 pb-safe z-10">
+    <nav className="fixed bottom-0 min-w-full bg-white border-t border-gray-200 pb-safe z-10">
       <div className="flex justify-around items-center h-16">
         {menuItems.map((item) => (
           <button
