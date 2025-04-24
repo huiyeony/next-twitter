@@ -2,7 +2,6 @@
 import { ChangeEvent, useState } from "react";
 import Head from "next/head";
 import styles from "@/styles/PostForm.module.css";
-import { GetServerSideProps } from "next";
 import { UploadForm } from "@/type";
 
 const onSubmit = async (form: UploadForm) => {
@@ -22,68 +21,6 @@ const onSubmit = async (form: UploadForm) => {
     body: formdata,
   });
 };
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   try {
-//     const cookies = context.req.cookies;
-//     const connectSid = cookies["connect.sid"] || "";
-//     //로그인 쿠키가 없으면 로그인 페이지로 리다이렉스
-//     if (!connectSid) {
-//       // return {
-//       //   redirect: {
-//       //     destination: "/login",
-//       //     permanent: false,
-//       //   },
-//       // };
-//     }
-//     //쿠키로 유저정보 가져오기
-//     const response = await fetch(
-//       `${process.env.NEXT_PUBLIC_BASE_URL}/auth/profile`,
-//       {
-//         headers: {
-//           Cookie: `connect.sid=${connectSid}`,
-//         },
-//         credentials: "include",
-//       }
-//     );
-//     if (!response.ok) {
-//       throw new Error(`${response.status}`);
-//     }
-//     const user = await response.json();
-//     // 사용자 데이터가 있으면 해당 사용자의 포스트 불러오기
-//     const res = await fetch(
-//       `${process.env.NEXT_PUBLIC_BASE_URL}/post/user/:${user.username}`,
-//       {
-//         headers: {
-//           Cookie: `connect.sid=${connectSid}`,
-//         },
-//         credentials: "include",
-//       }
-//     );
-//     if (!res.ok) {
-//       throw new Error(`불러오기 오류 `);
-//     }
-//     const data = await res.json();
-//     console.log(`포스트들:`, data);
-//     return {
-//       props: {
-//         user: user,
-//         posts: data.posts,
-//         currentPage: data.currentPage,
-//         totalPages: data.totalPages,
-//       },
-//     };
-//   } catch (error) {
-//     // 오류 발생 시 로그인 페이지로 리다이렉트
-//     console.log(error);
-//     return {
-//       redirect: {
-//         destination: "/profile",
-//         permanent: false,
-//       },
-//     };
-//   }
-// };
-
 export default function NewPostPage() {
   const [formData, setFormData] = useState<UploadForm>({
     title: "",
@@ -230,9 +167,7 @@ export default function NewPostPage() {
         </form>
       </main>
 
-      <footer className={styles.footer}>
-        <p></p>
-      </footer>
+      <footer className={styles.footer}></footer>
     </div>
   );
 }

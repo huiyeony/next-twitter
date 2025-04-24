@@ -25,7 +25,7 @@ export const getMenuItems = () => {
       id: 4,
       icon: User,
       label: "프로필",
-      path: `/profile/`,
+      path: `/profile`,
     },
   ];
   return menuItems;
