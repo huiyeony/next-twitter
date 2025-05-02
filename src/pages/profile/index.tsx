@@ -65,12 +65,12 @@ export default function ProfilePage() {
         const mockData: UserProfile = {
           id: "123456",
           username: "sakura_tanaka",
-          displayName: "田中 さくら",
+          displayName: "@sakura_tanaka",
           email: "sakura@example.jp",
-          bio: "東京を拠点にしたウェブデザイナー。日本の伝統とモダンなデザインの融合に興味があります。",
+          bio: "안녕하세요 기술 블로그 운영중인 주니어 개발자입니다!。",
           avatar: "image/user.png", // 실제로는 이미지 URL
           joinDate: "2023-05-15T00:00:00",
-          location: "東京, 日本",
+          location: "서울, 한국",
           website: "https://sakuradesign.jp",
           socialLinks: {
             twitter: "@sakura_design",
@@ -167,7 +167,7 @@ export default function ProfilePage() {
     }
 
     setIsEditing(false);
-    alert("プロフィールが更新されました！"); // 프로필이 업데이트되었습니다!
+    alert("프로필이 업데이트되었습니다!"); // 프로필이 업데이트되었습니다!
   };
 
   const formatJoinDate = (dateString: string): string => {
@@ -193,25 +193,10 @@ export default function ProfilePage() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>プロフィール | 프로필</title>
-        <meta name="description" content="일본 스타일의 프로필 페이지" />
+        <title>프로필</title>
+        <meta name="description" content="프로필 페이지" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <header className={styles.header}>
-        <div className={styles.logo}>
-          <span className={styles.redCircle}></span>
-          <h1>プロフィール</h1> {/* 프로필 */}
-        </div>
-        <nav className={styles.nav}>
-          <Link href="/" className={styles.navLink}>
-            ホーム {/* 홈 */}
-          </Link>
-          <Link href="/notifications" className={styles.navLink}>
-            通知 {/* 알림 */}
-          </Link>
-        </nav>
-      </header>
 
       <main className={styles.main}>
         {profile && (
@@ -222,11 +207,11 @@ export default function ProfilePage() {
                   <label className={styles.avatarEditLabel}>
                     <img
                       src={avatarPreview || "/images/default-avatar.jpg"}
-                      alt="プロフィール画像"
+                      alt="아바타 프리뷰"
                       className={styles.avatar}
                     />
                     <div className={styles.avatarOverlay}>
-                      <span>変更</span> {/* 변경 */}
+                      <span>변경</span> {/* 변경 */}
                     </div>
                     <input
                       type="file"
@@ -238,7 +223,7 @@ export default function ProfilePage() {
                 ) : (
                   <img
                     src={profile.avatar || "/images/default-avatar.jpg"}
-                    alt="プロフィール画像"
+                    alt="아바타 이미지"
                     className={styles.avatar}
                   />
                 )}
@@ -252,7 +237,7 @@ export default function ProfilePage() {
                     value={formData.displayName}
                     onChange={handleChange}
                     className={styles.nameInput}
-                    placeholder="表示名"
+                    placeholder="프로필정보"
                   />
                 ) : (
                   <h2 className={styles.displayName}>{profile.displayName}</h2>
@@ -263,21 +248,21 @@ export default function ProfilePage() {
                     <span className={styles.statNumber}>
                       {profile.stats.posts}
                     </span>
-                    <span className={styles.statLabel}>投稿</span>{" "}
+                    <span className={styles.statLabel}>게시글</span>{" "}
                     {/* 게시글 */}
                   </div>
                   <div className={styles.stat}>
                     <span className={styles.statNumber}>
                       {profile.stats.followers}
                     </span>
-                    <span className={styles.statLabel}>フォロワー</span>{" "}
+                    <span className={styles.statLabel}>팔로워</span>{" "}
                     {/* 팔로워 */}
                   </div>
                   <div className={styles.stat}>
                     <span className={styles.statNumber}>
                       {profile.stats.following}
                     </span>
-                    <span className={styles.statLabel}>フォロー中</span>{" "}
+                    <span className={styles.statLabel}>팔로잉</span>{" "}
                     {/* 팔로잉 */}
                   </div>
                 </div>
@@ -288,7 +273,7 @@ export default function ProfilePage() {
                   className={styles.editButton}
                   onClick={() => setIsEditing(true)}
                 >
-                  編集 {/* 편집 */}
+                  편집 {/* 편집 */}
                 </button>
               )}
             </div>
@@ -296,20 +281,20 @@ export default function ProfilePage() {
             {isEditing ? (
               <form onSubmit={handleSubmit} className={styles.editForm}>
                 <div className={styles.formGroup}>
-                  <label htmlFor="bio">自己紹介</label> {/* 자기소개 */}
+                  <label htmlFor="bio">자기소개</label> {/* 자기소개 */}
                   <textarea
                     id="bio"
                     name="bio"
                     value={formData.bio}
                     onChange={handleChange}
                     className={styles.textarea}
-                    placeholder="自己紹介を入力してください"
+                    placeholder="안녕하세요~"
                     rows={4}
                   ></textarea>
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label htmlFor="location">場所</label> {/* 위치 */}
+                  <label htmlFor="location">위치</label> {/* 위치 */}
                   <input
                     type="text"
                     id="location"
@@ -317,12 +302,12 @@ export default function ProfilePage() {
                     value={formData.location}
                     onChange={handleChange}
                     className={styles.input}
-                    placeholder="場所"
+                    placeholder="위치"
                   />
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label htmlFor="website">ウェブサイト</label> {/* 웹사이트 */}
+                  <label htmlFor="website">웹사이트</label> {/* 웹사이트 */}
                   <input
                     type="text"
                     id="website"
@@ -335,7 +320,7 @@ export default function ProfilePage() {
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label>SNSアカウント</label> {/* SNS 계정 */}
+                  <label>SNS 계정</label> {/* SNS 계정 */}
                   <div className={styles.socialInput}>
                     <span className={styles.socialIcon}>🐦</span>
                     <input
@@ -377,23 +362,23 @@ export default function ProfilePage() {
                     className={styles.cancelButton}
                     onClick={() => setIsEditing(false)}
                   >
-                    キャンセル {/* 취소 */}
+                    취소 {/* 취소 */}
                   </button>
                   <button type="submit" className={styles.saveButton}>
-                    保存 {/* 저장 */}
+                    저장 {/* 저장 */}
                   </button>
                 </div>
               </form>
             ) : (
               <div className={styles.profileDetails}>
                 <div className={styles.section}>
-                  <h3 className={styles.sectionTitle}>自己紹介</h3>{" "}
+                  <h3 className={styles.sectionTitle}>자기 소개</h3>{" "}
                   {/* 자기소개 */}
                   <p className={styles.bio}>{profile.bio}</p>
                 </div>
 
                 <div className={styles.section}>
-                  <h3 className={styles.sectionTitle}>情報</h3> {/* 정보 */}
+                  <h3 className={styles.sectionTitle}>정보</h3> {/* 정보 */}
                   <div className={styles.infoItem}>
                     <span className={styles.infoIcon}>📍</span>
                     <span>{profile.location}</span>
@@ -413,7 +398,7 @@ export default function ProfilePage() {
                   )}
                   <div className={styles.infoItem}>
                     <span className={styles.infoIcon}>📅</span>
-                    <span>{formatJoinDate(profile.joinDate)}に参加</span>{" "}
+                    <span>{formatJoinDate(profile.joinDate)}에 가입</span>{" "}
                     {/* ~에 가입 */}
                   </div>
                 </div>
@@ -445,9 +430,7 @@ export default function ProfilePage() {
         )}
       </main>
 
-      <footer className={styles.footer}>
-        <p>&copy; 2025 日本スタイルポータル - All Rights Reserved</p>
-      </footer>
+      <footer className={styles.footer}></footer>
     </div>
   );
 }

@@ -3,47 +3,7 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import styles from "@/styles/Feed.module.css";
-import { GetServerSideProps } from "next";
-import { getMockPosts } from "@/utils/getMockPosts";
-import Image from "next/image";
-// interface HomePageProps {
-//   posts: Post[];
-//   currentPage: number;
-//   totalPages: number;
-// }
-// export const getServerSideProps: GetServerSideProps<HomePageProps> = async (
-//   context
-// ) => {
-//   try {
-//     //url 쿼리 파라미터에서 페이지 정보 가져오기
-//     const page = context.query.page ? Number(context.query.page) : 1;
-//     // 백엔드 API에서 게시글 데이터 가져오기 (fetch 사용)
-//     const response = await fetch(
-//       `${process.env.NEXT_PUBLIC_BASE_URL}/post/?currentPage=${page}&limit=10&category=all&sort=latest`
-//     );
-//     if (!response.ok) {
-//       throw new Error(`${response.status}`);
-//     }
-//     const data = await response.json();
 
-//     return {
-//       props: {
-//         posts: data.posts,
-//         currentPage: data.currentPage,
-//         totalPages: data.totalPages,
-//       },
-//     };
-//   } catch (error) {
-//     //오류 발생시 빈 데이터로 반환
-//     return {
-//       props: {
-//         posts: [],
-//         currentPage: 1,
-//         totalPages: 0,
-//       },
-//     };
-//   }
-// };
 // TypeScript 인터페이스 정의
 interface Post {
   id: string;
@@ -117,7 +77,7 @@ export default function FeedPage() {
   };
   const putLikes = async (postId: string) => {
     try {
-      // 'put' 요청
+      // 좋아요 누른 것에 대한 PUT 요청
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/post/${postId}`,
         {
@@ -167,27 +127,6 @@ export default function FeedPage() {
         <meta name="description" content="게시글 피드 페이지" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <header className={styles.header}>
-        <div className={styles.logo}>
-          <span className={styles.redCircle}></span>
-          <h1>게시글 피드</h1> {/* 게시글 피드 */}
-        </div>
-        <nav className={styles.nav}>
-          <Link href="/" className={styles.navLink}>
-            홈 {/* 홈 */}
-          </Link>
-          <Link href="/post/new" className={styles.navLink}>
-            새 게시글 {/* 새 게시글 */}
-          </Link>
-          <Link href="/notifications" className={styles.navLink}>
-            알림 {/* 알림 */}
-          </Link>
-          <Link href="/profile" className={styles.navLink}>
-            프로필 {/* 프로필 */}
-          </Link>
-        </nav>
-      </header>
 
       <main className={styles.main}>
         <div className={styles.feedHeader}>
@@ -316,7 +255,7 @@ export default function FeedPage() {
         </div>
       </main>
 
-      <footer className={styles.footer}></footer>
+      <footer className={styles.footer}>ㅌ</footer>
     </div>
   );
 }

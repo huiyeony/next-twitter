@@ -56,6 +56,7 @@ export interface FormError {
   submit: string;
 }
 export interface RegisterRequest {
+  username: string;
   email: string;
   password: string;
 }

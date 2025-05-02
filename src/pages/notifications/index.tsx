@@ -128,21 +128,6 @@ export default function NotificationsPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header className={styles.header}>
-        <div className={styles.logo}>
-          <span className={styles.redCircle}></span>
-          <h1>알림 센터。</h1> {/* 알림 센터 */}
-        </div>
-        <nav className={styles.nav}>
-          <Link href="/" className={styles.navLink}>
-            홈。 {/* 홈 */}
-          </Link>
-          <Link href="/profile" className={styles.navLink}>
-            프로필。 {/* 프로필 */}
-          </Link>
-        </nav>
-      </header>
-
       <main className={styles.main}>
         <div className={styles.notificationHeader}>
           <h2>알림。</h2> {/* 알림 */}

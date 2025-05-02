@@ -12,10 +12,10 @@ export const login = async (req: LoginRequest) => {
       body: JSON.stringify(req),
     });
     if (!res.ok) {
+      console.log(res.statusText);
       throw new Error(`로그인 실패`);
     }
     const data = await res.json();
-
     return data;
   } catch (error) {
     console.log(error);

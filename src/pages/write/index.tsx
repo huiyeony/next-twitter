@@ -73,7 +73,6 @@ export default function NewPostPage() {
 
       <header className={styles.header}>
         <div className={styles.logo}>
-          <span className={styles.redCircle}></span>
           <h1>게시판</h1> {/* 게시판 */}
         </div>
         <p className={styles.subtitle}>새 게시글 작성</p> {/* 새 게시글 작성 */}

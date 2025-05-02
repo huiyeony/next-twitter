@@ -4,9 +4,9 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { login } from "../api/auth";
+import { countdownRedirect } from "@/utils/redirect";
 
 export default function Index() {
-  const { setUser } = useAuthStore();
   const router = useRouter();
   const [form, setForm] = useState<LoginRequest>({
     email: "",
@@ -50,9 +50,7 @@ export default function Index() {
       try {
         // /api/auth -> 서버에서만 실행됨
         const data = await login(form);
-
-        setUser(data.user);
-        router.push("/");
+        countdownRedirect("/", 3);
       } catch (e) {
         console.log(e);
         setErrors({
@@ -123,7 +121,7 @@ export default function Index() {
               <button
                 type="submit"
                 className="h-13 flex justify-center py-2 px-4 border
-                 border-transparent text-sm font-medium rounded-md text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                 border-transparent text-sm font-medium rounded-md text-white bg-sky-200 hover:bg-sky-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 제출하기
               </button>
@@ -132,7 +130,7 @@ export default function Index() {
                   router.push("/register");
                 }}
                 className="mt-4 h-13 flex justify-center py-2 px-4 border
-                 border-transparent text-sm font-medium rounded-md text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                 border-transparent text-sm font-medium rounded-md text-white bg-sky-200 hover:bg-sky-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 회원가입하기
               </button>
