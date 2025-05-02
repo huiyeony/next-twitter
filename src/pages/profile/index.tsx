@@ -132,17 +132,6 @@ export default function ProfilePage() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // 실제 구현에서는 API 호출을 통해 프로필을 업데이트합니다
-    // const formDataToSend = new FormData();
-    // formDataToSend.append('displayName', formData.displayName);
-    // ... other fields
-    // if (newAvatar) formDataToSend.append('avatar', newAvatar);
-
-    // await fetch('/api/profile', {
-    //   method: 'PUT',
-    //   body: formDataToSend
-    // });
-
     // 업데이트된 프로필 정보를 상태에 반영
     if (profile) {
       const updatedProfile: UserProfile = {

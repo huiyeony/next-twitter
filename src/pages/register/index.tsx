@@ -1,9 +1,10 @@
 import Head from "next/head";
-import { ChangeEvent, FormEvent, useReducer, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { register } from "../api/auth";
-import { countdownRedirect } from "@/utils/redirect";
+import { useRouter } from "next/router";
 
 export default function Index() {
+  const router = useRouter();
   const initialFormValue = {
     username: "",
     email: "",
@@ -22,7 +23,7 @@ export default function Index() {
     e.preventDefault();
     try {
       await register(formData);
-      countdownRedirect("/login", 3);
+      router.push("login");
     } catch (e) {
       alert("문제가 발생했습니다 다시 시도해 주세요..");
     }

@@ -4,8 +4,7 @@ export const MyHeader = () => {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
-        <span className={styles.redCircle}></span>
-        <h1>우당탕탕 기술 블로그</h1> {/* 게시글 피드 */}
+        <h1 className={styles.h1}>대나무 숲</h1> {/* 게시글 피드 */}
       </div>
       <nav className={styles.nav}>
         <Link href="/" className={styles.navLink}>

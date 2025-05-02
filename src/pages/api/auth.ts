@@ -2,7 +2,6 @@ import { LoginRequest, RegisterRequest } from "@/type";
 //이 코드는 서버에서만 실행됨
 export const login = async (req: LoginRequest) => {
   try {
-    console.log("Base URL:", process.env.NEXT_PUBLIC_BASE_URL); //환경변수 안전하게 접근
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/login`, {
       method: "POST",
       headers: {
@@ -12,11 +11,9 @@ export const login = async (req: LoginRequest) => {
       body: JSON.stringify(req),
     });
     if (!res.ok) {
-      console.log(res.statusText);
       throw new Error(`로그인 실패`);
     }
-    const data = await res.json();
-    return data;
+    return await res.json();
   } catch (error) {
     console.log(error);
   }

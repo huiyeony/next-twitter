@@ -48,7 +48,12 @@ export default function FeedPage() {
       try {
         // 실제 구현에서는 여기에 API 호출이 들어갑니다
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/post?currentPage=${currentPage}&limit=10&category=${activeCategory}&sort=${sortOrder}`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/post?currentPage=${currentPage}&limit=10&category=${activeCategory}&sort=${sortOrder}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         );
 
         if (response.ok) {

@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from "react";
 import Head from "next/head";
 import styles from "@/styles/PostForm.module.css";
 import { UploadForm } from "@/type";
+import { useRouter } from "next/router";
 
 const onSubmit = async (form: UploadForm) => {
   const formdata = new FormData();
@@ -22,6 +23,7 @@ const onSubmit = async (form: UploadForm) => {
   });
 };
 export default function NewPostPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState<UploadForm>({
     title: "",
     category: "general",
@@ -51,16 +53,10 @@ export default function NewPostPage() {
 
   const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // 여기에 API 호출 또는 데이터 처리 로직 추가
-    console.log("폼 제출:", formData);
-    // 예: API 호출
-    // const response = await fetch('/api/posts', {
-    //   method: 'POST',
-    //   body: JSON.stringify(formData)
-    // });
-
     await onSubmit(formData);
     alert("게시글이 제출되었습니다!"); // 게시글이 제출되었습니다!
+
+    router.push("/");
   };
 
   return (

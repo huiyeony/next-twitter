@@ -4,7 +4,6 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { login } from "../api/auth";
-import { countdownRedirect } from "@/utils/redirect";
 
 export default function Index() {
   const router = useRouter();
@@ -49,8 +48,10 @@ export default function Index() {
     if (Object.values(newErrors).every((value) => value == "")) {
       try {
         // /api/auth -> 서버에서만 실행됨
-        const data = await login(form);
-        countdownRedirect("/", 3);
+        const { token } = await login(form);
+        console.log(`jwt 토근 값 -> ${token}`);
+        localStorage.setItem("token", token); //로컬스토리지에 저장
+        router.push("/");
       } catch (e) {
         console.log(e);
         setErrors({
