@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import styles from "@/styles/Feed.module.css";
+import { useRouter } from "next/router";
 
 // TypeScript 인터페이스 정의
 interface Post {
@@ -22,10 +23,16 @@ interface Post {
 interface CategoryFilter {
   id: string;
   name: string;
-  japName: string;
 }
 
 export default function FeedPage() {
+  const router = useRouter();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.push("/login");
+    }
+  }, []);
   const [posts, setPosts] = useState<Post[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState<boolean>(false);
@@ -34,19 +41,19 @@ export default function FeedPage() {
 
   // 카테고리 필터 목록
   const categories: CategoryFilter[] = [
-    { id: "all", name: "전체", japName: "全て" },
-    { id: "general", name: "일반", japName: "一般" },
-    { id: "news", name: "뉴스", japName: "ニュース" },
-    { id: "culture", name: "문화", japName: "文化" },
-    { id: "food", name: "요리", japName: "料理" },
-    { id: "travel", name: "여행", japName: "旅行" },
+    { id: "all", name: "전체" },
+    { id: "general", name: "일반" },
+    { id: "study", name: "공부" },
+    { id: "relation", name: "인간관계" },
+    { id: "love", name: "연애/결혼" },
+    { id: "family", name: "가족" },
+    { id: "money", name: "재태크" },
   ];
 
   useEffect(() => {
-    // 게시글 데이터를 가져오는 API 호출을 시뮬레이션
+    console.log(`토큰 값 -> ${localStorage.getItem("token")}`);
     const fetchPosts = async () => {
       try {
-        // 실제 구현에서는 여기에 API 호출이 들어갑니다
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/post?currentPage=${currentPage}&limit=10&category=${activeCategory}&sort=${sortOrder}`,
           {
@@ -204,10 +211,6 @@ export default function FeedPage() {
                     <div className={styles.postInfo}>
                       <span className={styles.postDate}>
                         {formatDate(post.createdAt)}
-                      </span>
-                      <span className={styles.postCategory}>
-                        {categories.find((c) => c.id === post.category)
-                          ?.japName || post.category}
                       </span>
                     </div>
                   </div>

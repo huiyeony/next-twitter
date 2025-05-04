@@ -1,5 +1,5 @@
 // pages/post/new.js
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Head from "next/head";
 import styles from "@/styles/PostForm.module.css";
 import { UploadForm } from "@/type";
@@ -31,6 +31,12 @@ export default function NewPostPage() {
     author: "",
     image: null,
   });
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      router.push("/login");
+    }
+  }, []);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -99,11 +105,12 @@ export default function NewPostPage() {
               className={styles.select}
               onChange={handleChange}
             >
-              <option value="general">일반</option> {/* 일반 */}
-              <option value="news">뉴스</option> {/* 뉴스 */}
-              <option value="culture">문화</option> {/* 문화 */}
-              <option value="food">요리</option> {/* 요리 */}
-              <option value="travel">여행</option> {/* 여행 */}
+              <option value="general">일반</option>
+              <option value="study">공부</option>
+              <option value="relation">인간관계</option>
+              <option value="love">연애/결혼</option>
+              <option value="family">가족</option>
+              <option value="money">재태크</option>
             </select>
           </div>
 
