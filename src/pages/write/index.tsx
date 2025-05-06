@@ -1,69 +1,48 @@
 // pages/post/new.js
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect } from "react";
 import Head from "next/head";
 import styles from "@/styles/PostForm.module.css";
-import { UploadForm } from "@/type";
 import { useRouter } from "next/router";
-
-const onSubmit = async (form: UploadForm) => {
-  const formdata = new FormData();
-  formdata.append("title", form.title);
-  formdata.append("username", form.author);
-  formdata.append("content", form.content);
-  formdata.append("category", form.category);
-  //File 은 Blob의 하위 타입임
-  if (form.image) {
-    formdata.append("file", form.image);
-  }
-  //api 요청
-
-  await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/post/create`, {
-    method: "POST",
-    body: formdata,
-  });
+import { useForm } from "react-hook-form";
+type Inputs = {
+  category: string;
+  title: string;
+  content: string;
+  username: string;
+  image: File | null;
 };
-export default function NewPostPage() {
+
+export default function Page() {
   const router = useRouter();
-  const [formData, setFormData] = useState<UploadForm>({
-    title: "",
-    category: "general",
-    content: "",
-    author: "",
-    image: null,
-  });
+  const onSubmit = async (data: Inputs) => {
+    const formdata = new FormData();
+    formdata.append("title", data.title);
+    formdata.append("username", data.username);
+    formdata.append("content", data.content);
+    formdata.append("category", data.category);
+    if (data.image) formdata.append("file", data.image);
+
+    //POST
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/post/create`,
+      {
+        method: "POST",
+        body: formdata,
+      }
+    );
+    if (!response.ok) {
+      throw new Error("게시글을 등록 못해씀");
+      return;
+    }
+    router.push("/");
+  };
+  const { register, handleSubmit } = useForm<Inputs>();
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
       router.push("/login");
     }
   }, []);
-
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setFormData((prevData) => ({
-        ...prevData,
-        image: e.target.files ? e.target.files[0] : null,
-      }));
-    }
-  };
-
-  const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    await onSubmit(formData);
-    alert("게시글이 제출되었습니다!"); // 게시글이 제출되었습니다!
-
-    router.push("/");
-  };
 
   return (
     <div className={styles.container}>
@@ -77,33 +56,28 @@ export default function NewPostPage() {
         <div className={styles.logo}>
           <h1>게시판</h1> {/* 게시판 */}
         </div>
-        <p className={styles.subtitle}>새 게시글 작성</p> {/* 새 게시글 작성 */}
+        <p className={styles.subtitle}>새 게시글 작성</p>
       </header>
 
       <main className={styles.main}>
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
           <div className={styles.formGroup}>
-            <label htmlFor="title">제목</label> {/* 제목 */}
             <input
               type="text"
               id="title"
-              name="title"
-              value={formData.title}
-              onChange={handleChange}
               required
               className={styles.input}
               placeholder="제목"
+              {...register("title", { required: true })}
             />
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="category">카테고리</label> {/* 카테고리 */}
             <select
               id="category"
-              name="category"
-              value={formData.category}
               className={styles.select}
-              onChange={handleChange}
+              {...register("category")}
+              defaultValue="general"
             >
               <option value="general">일반</option>
               <option value="study">공부</option>
@@ -115,30 +89,23 @@ export default function NewPostPage() {
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="content">내용</label> {/* 내용 */}
             <textarea
               id="content"
-              name="content"
-              value={formData.content}
-              onChange={handleChange}
-              required
               className={styles.textarea}
               placeholder="내용"
               rows={10}
+              {...register("content", { required: true })}
             ></textarea>
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="author">작성자</label> {/* 작성자 */}
             <input
               type="text"
               id="author"
-              name="author"
-              value={formData.author}
-              onChange={handleChange}
-              required
               className={styles.input}
               placeholder="작성자"
+              {...register("username")}
+              defaultValue={"Anonymous"}
             />
           </div>
 
@@ -148,10 +115,9 @@ export default function NewPostPage() {
               <input
                 type="file"
                 id="image"
-                name="image"
                 accept="image/*"
-                onChange={handleImageChange}
                 className={styles.inputFile}
+                {...register("image")}
               />
               <span className={styles.fileLabel}>파일 선택</span>{" "}
               {/* 파일 선택 */}

@@ -18,38 +18,24 @@ export type NotificationDto = {
   message: string;
 };
 
-export type UpdatePostDto = {
-  id: number;
-  content: string;
-};
 export type CreatePostDto = {
   username: string;
   content: string;
 };
-export type Post = {
-  id: number;
+export interface Post {
+  id: string;
+  title: string;
+  content: string;
   username: string;
   createdAt: string;
-  content: string;
-  image: string | null;
-  isLiked: boolean;
+  category: string;
+  image?: string;
   likes: number;
-  isBookmarked: boolean;
-};
-
-export type Room = {
-  id: number;
-  thumbnail?: string;
-  title?: string;
-  lastUpdated?: string;
-  lastMessage?: string;
-  unread?: number;
-};
-export interface User {
-  email: string;
-  username: string;
-  password: string | undefined;
+  comments: number;
+  isLiked: boolean;
+  tags: string[];
 }
+
 export interface FormError {
   email: string;
   password: string;
@@ -60,19 +46,8 @@ export interface RegisterRequest {
   email: string;
   password: string;
 }
-export interface RegisterResponse {
-  user: User;
-}
-
-export interface AxiosError {
-  message: string;
-  status: number | undefined;
-}
 
 export interface LoginRequest {
   email: string;
   password: string;
-}
-export interface LoginResponse {
-  message: string;
 }

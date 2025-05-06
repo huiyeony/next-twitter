@@ -4,28 +4,12 @@ import Head from "next/head";
 import Link from "next/link";
 import styles from "@/styles/Feed.module.css";
 import { useRouter } from "next/router";
+import { Post } from "@/type";
+import { getCategories } from "@/utils/getCategoryFilters";
 
-// TypeScript 인터페이스 정의
-interface Post {
-  id: string;
-  title: string;
-  content: string;
-  username: string;
-  createdAt: string;
-  category: string;
-  image?: string;
-  likes: number;
-  comments: number;
-  isLiked: boolean;
-  tags: string[];
-}
+const categories = getCategories();
 
-interface CategoryFilter {
-  id: string;
-  name: string;
-}
-
-export default function FeedPage() {
+export default function Page() {
   const router = useRouter();
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -40,15 +24,6 @@ export default function FeedPage() {
   const [sortOrder, setSortOrder] = useState<"latest" | "popular">("latest");
 
   // 카테고리 필터 목록
-  const categories: CategoryFilter[] = [
-    { id: "all", name: "전체" },
-    { id: "general", name: "일반" },
-    { id: "study", name: "공부" },
-    { id: "relation", name: "인간관계" },
-    { id: "love", name: "연애/결혼" },
-    { id: "family", name: "가족" },
-    { id: "money", name: "재태크" },
-  ];
 
   useEffect(() => {
     console.log(`토큰 값 -> ${localStorage.getItem("token")}`);
