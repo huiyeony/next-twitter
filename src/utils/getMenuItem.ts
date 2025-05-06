@@ -1,4 +1,3 @@
-import useAuthStore from "@/store/authStore";
 import { Home, User, Bell, Pencil } from "lucide-react";
 
 export const getMenuItems = () => {
